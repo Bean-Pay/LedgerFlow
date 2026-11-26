@@ -1,0 +1,63 @@
+# ==============================
+# IntelliJ IDEA
+# ==============================
+.idea/
+*.iml
+out/
+
+# ==============================
+# Java / Maven
+# ==============================
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# Keep Maven Wrapper files
+!.mvn/wrapper/maven-wrapper.jar
+
+# ==============================
+# Environment variables / secrets
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/
+
+# ==============================
+# Operating system files
+# ==============================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==============================
+# Frontend (when added)
+# ==============================
+**/node_modules/
+**/dist/
+**/.vite/
+
+# ==============================
+# Test / coverage reports
+# ==============================
+**/coverage/
+**/test-results/
+**/allure-results/
+**/allure-report/
+
+# ==============================
+# Local database / temporary files
+# ==============================
+*.dump
+*.backup
+*.tmp
+*.swp

@@ -1,0 +1,48 @@
+﻿name: Backend CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build and test Core
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: ledgerflow
+          POSTGRES_USER: ledgerflow_app
+          POSTGRES_PASSWORD: ledgerflow_secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ledgerflow_app -d ledgerflow"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DB_USERNAME: ledgerflow_app
+      DB_PASSWORD: ledgerflow_secret
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and test Core
+        working-directory: apps/core
+        run: ./mvnw -B clean verify
